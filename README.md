@@ -1,0 +1,1 @@
+# Drools6.5_Sample
