@@ -1,0 +1,13 @@
+package drools.sample.regles
+
+import drools.sample.model.*;
+
+rule "facturer_les_heures"
+ruleflow-group "Facturation"
+	when
+		$ef : ElementFacture(montant == 0.0f)
+	then
+	    modify($ef) {
+	        setMontant($ef.getTauxHoraire().getMontant() * $ef.getPeriode().getNombreHeures())
+	    }
+end

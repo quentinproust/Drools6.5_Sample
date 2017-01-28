@@ -1,0 +1,6 @@
+<kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.drools.org/xsd/kmodule">
+  <kbase name="KBaseSimulateur" default="true" packages="drools.sample.regles">
+    <ksession name="KSessionSimulateur" type="stateful" default="true" />
+  </kbase>
+</kmodule>

@@ -1,0 +1,16 @@
+package drools.sample.regles
+
+import drools.sample.model.*;
+
+rule "decoupage_periode_selon_taux_horaire"
+ruleflow-group "Decoupage"
+	when
+		$j : JourDeGarde()
+		$c : Contrat(enfant == $j.enfant)
+
+		$p : Periode() from $j.periodes
+		$th : TauxHoraire(contrat == $c, periode.chevauche($p), !periode.inclus($p))
+	then
+	    Periode periodeAFacture = $th.getPeriode().getPeriodeContenue($p);
+		insert(new ElementFacture($th, $j, periodeAFacture));
+end

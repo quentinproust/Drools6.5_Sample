@@ -1,0 +1,12 @@
+package drools.sample.regles
+
+import drools.sample.model.*;
+
+rule "verification_presence_contrat"
+ruleflow-group "Check"
+	when
+		$e : Enfant()
+		not Contrat(enfant == $e)
+	then 
+		 insert(new Message("Aucun contrat pour {0}.", $e));
+end

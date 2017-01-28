@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="PolicyRequest" structureRef="org.drools.examples.carinsurance.domain.request.PolicyRequest" />
+  <process processType="Private" isExecutable="true" id="workflow" name="workflow" tns:packageName="drools.sample.regles" >
+
+    <!-- nodes -->
+    <startEvent id="start" name="StartProcess"  isInterrupting="true">
+    </startEvent>
+    <endEvent id="end" name="End" >
+        <terminateEventDefinition />
+    </endEvent>
+    <businessRuleTask id="_jbpm-unique-1" name="Check" g:ruleFlowGroup="Check" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </businessRuleTask>
+    <businessRuleTask id="_jbpm-unique-2" name="Decoupage" g:ruleFlowGroup="Decoupage" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </businessRuleTask>
+    <businessRuleTask id="BusinessRuleTask_2" name="Facturation" g:ruleFlowGroup="Facturation" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </businessRuleTask>
+
+    <!-- connections -->
+    <sequenceFlow id="BusinessRuleTask_2-end" sourceRef="BusinessRuleTask_2" targetRef="end" />
+    <sequenceFlow id="start-_jbpm-unique-1" sourceRef="start" targetRef="_jbpm-unique-1" />
+    <sequenceFlow id="_jbpm-unique-1-_jbpm-unique-2" sourceRef="_jbpm-unique-1" targetRef="_jbpm-unique-2" />
+    <sequenceFlow id="_jbpm-unique-2-BusinessRuleTask_2" sourceRef="_jbpm-unique-2" targetRef="BusinessRuleTask_2" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="workflow" >
+      <bpmndi:BPMNShape bpmnElement="start" >
+        <dc:Bounds x="44" y="53" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" >
+        <dc:Bounds x="564" y="53" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_jbpm-unique-1" >
+        <dc:Bounds x="136" y="52" width="110" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_jbpm-unique-2" >
+        <dc:Bounds x="296" y="50" width="85" height="55" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="BusinessRuleTask_2" >
+        <dc:Bounds x="441" y="49" width="85" height="55" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="BusinessRuleTask_2-end" >
+        <di:waypoint x="483" y="76" />
+        <di:waypoint x="588" y="77" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="start-_jbpm-unique-1" >
+        <di:waypoint x="68" y="77" />
+        <di:waypoint x="191" y="77" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_jbpm-unique-1-_jbpm-unique-2" >
+        <di:waypoint x="191" y="77" />
+        <di:waypoint x="338" y="77" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_jbpm-unique-2-BusinessRuleTask_2" >
+        <di:waypoint x="338" y="77" />
+        <di:waypoint x="483" y="76" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

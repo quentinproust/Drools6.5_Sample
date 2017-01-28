@@ -1,0 +1,16 @@
+package drools.sample.regles
+
+import drools.sample.model.*;
+
+rule "verification_periode_en_double"
+ruleflow-group "Check"
+	when
+		$j : JourDeGarde()
+		$p : Periode() from $j.periodes
+		exists Periode(this != $p, chevauche($p)) from $j.periodes
+	then 
+		 insert(new Message("Le jour de garde {0} de {1} contient au moins une période chevauchant la période {2}.",
+		 	$j.getDate(),
+			$j.getEnfant(),
+			$p));
+end

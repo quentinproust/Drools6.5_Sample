@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="compilerArtifacts">
+    <property name="droolsPath" value="D:/Tools/drools" />
+    <property name="m2repo" value="C:/AFJ/repository3" />
+	
+	<property name="pkgPath" value="target/${PkgName}.pkg" />
+	
+	<!-- Les versions du socle peuvent changer. -->
+	<property name="versionSocleDAI" value="V02-85-1504A" />
+	<property name="versionSocleDTE" value="V02-44-1503" />
+	
+	<!-- La version de JDRL peut changer. -->
+	<property name="jdrlProjectName" value="MCOT-OG14_JDRL" />
+	<property name="jdrlJar" value="${jdrlProjectName}-V15-22-SNAPSHOT.jar" />
+    
+    <path id="drools.classpath">
+        <pathelement location="${droolsPath}/drools-ant-5.3.0.Final.jar" />
+    	<pathelement location="${droolsPath}/drools-core-5.3.0.BRMS.jar" />
+        <pathelement location="${droolsPath}/knowledge-api-5.3.0.BRMS.jar" />
+        <pathelement location="${droolsPath}/drools-compiler-5.3.0.BRMS.jar" />
+        <pathelement location="${droolsPath}/antlr-runtime-3.3.jar" />
+        <pathelement location="${droolsPath}/mvel2-2.1.Beta6.jar" />
+    	<pathelement location="${droolsPath}/ecj-3.5.1.jar" />
+        <pathelement location="${droolsPath}/jbpm-flow-5.1.2.Final.jar" />
+		<pathelement location="${droolsPath}/jbpm-flow-builder-5.1.2.Final.jar" />
+    </path>
+    
+    <path id="model.classpath">
+        <pathelement location="../${jdrlProjectName}/target/${jdrlJar}" />
+        <pathelement location="${m2repo}/commons-lang/commons-lang/2.6/commons-lang-2.6.jar" />
+        <pathelement location="${m2repo}/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar" />
+        <pathelement location="${m2repo}/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar" />
+    	<pathelement location="${m2repo}/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.jar" />
+    	<pathelement location="${m2repo}/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" />
+        
+    	<pathelement location="${m2repo}/fr/effigie/afj/AFJsocleCommunDAI/${versionSocleDAI}/AFJsocleCommunDAI-${versionSocleDAI}.jar" />
+    	<pathelement location="${m2repo}/fr/effigie/afj/AFJsocleMetierDAI/${versionSocleDAI}/AFJsocleMetierDAI-${versionSocleDAI}.jar" />
+    	<pathelement location="${m2repo}/fr/effigie/afj/AFJsocleMetierDTE/${versionSocleDTE}/AFJsocleMetierDTE-${versionSocleDTE}.jar" />
+        <pathelement location="${m2repo}/fr/effigie/afj/AFJsocleCommunDTE/${versionSocleDTE}/AFJsocleCommunDTE-${versionSocleDTE}.jar" />
+    </path>
+    
+	<taskdef name="compiler" classpathref="drools.classpath"
+	        classname="org.drools.contrib.DroolsCompilerAntTask" />
+	
+    <target name="compilerArtifacts">
+        <compiler srcdir=""
+            tofile="${pkgPath}"
+            binformat="package" bintype="package"
+            classpathref="model.classpath">
+            <include name="regles/*.drl" />
+            <include name="regles/*.rf" />
+        </compiler>
+    </target>
+</project>

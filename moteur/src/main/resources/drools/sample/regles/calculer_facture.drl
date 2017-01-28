@@ -1,0 +1,23 @@
+package drools.sample.regles
+
+import drools.sample.model.*
+import java.util.*;
+
+rule "calculer_facture"
+ruleflow-group "Facturation"
+salience -100
+	when
+		$enfant : Enfant()
+        not Facture(enfant == $enfant)
+		$efs : List(!isEmpty) from collect (ElementFacture(jourDeGarde.enfant == $enfant))
+		$rfs : List() from collect (RepasFacture(jourDeGarde.enfant == $enfant))
+	then
+	    float montant = 0.0f;
+	    for (ElementFacture ef : new ArrayList<ElementFacture>($efs)) {
+	        montant += ef.getMontant();
+	    }
+	    for (RepasFacture rf : new ArrayList<RepasFacture>($rfs)) {
+	        montant += rf.getMontant();
+	    }
+	    insert(new Facture($enfant, montant));
+end
